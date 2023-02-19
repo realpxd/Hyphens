@@ -17,7 +17,7 @@
 	<section class="dashboard-user" id="dashboard-user">
 		<div class="dashboard-data-user" id="dashboard-data-user">
 			<div id="header-div-container">
-				<div class="header-container">
+				<div id="header-container" class="header-container">
 					<div class="c-s-list" id="c-s-list">
 						<p class="class-name" id="class-name"> <b> Class : <span class="class-in-name-profile" id="class-in-name-profile"></span></b></p>
 						<i class="fa fa-gear" ></i>
@@ -51,7 +51,7 @@
 	<section class="container-quiz-user" id="container-quiz-user">
 		<div class="container-ongoing-user" id="container-ongoing-user">
 			<div id="header-div-container">
-				<div class="header-container">
+				<div id="header-container" class="header-container">
 					<div class="c-s-list" id="c-s-list">
 						<p class="class-name" id="class-name">Class : <span class="class-in-name" id="class-in-name"></span></p>
 						<p id="subject-in-user"> Subject : <span class="subject-in-name" id="subject-in-name"></span></p>
@@ -146,7 +146,7 @@ const navBar = document.getElementById("nav-bar")
 var classInName = document.getElementById("class-in-name")
 var classInNameProfile = document.getElementById("class-in-name-profile")
 var Bar = document.getElementById("header-div-container")
-var BarChild = document.getElementById("header-container")
+var BarChild = document.querySelectorAll("#header-container")
 
 var userName = document.getElementById("user-profile-name")
 var userSchool = document.getElementById("user-profile-school")

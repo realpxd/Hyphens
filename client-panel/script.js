@@ -16,7 +16,6 @@ var tempVal = 5;
 tempObj[0].tempVal += tempVal;
 console.log(tempObj);
 // alert(tempObj);
-
 const getUserProfileData = async () => {
   try {
     const response = await fetch(`https://naman77s.github.io/quizapi/userData.json`);
@@ -104,11 +103,18 @@ const getQuiz = async (dirName, fileName) => {
       quiz.style.display = "block"
       containerOngoing.style.display = "none"
       Bar.style.display = "none"
-      BarChild.style.display = "none"
+      BarChild[0].style.display = "none"
+      BarChild[1].style.display = "none"
+      navBar.style.display = "none"
       $("#bottom-nav").fadeOut(100);
       $("#header-div-container").fadeOut(100);
       loadQuiz()
       totalQues.innerHTML = quizData.length
+      history.pushState(null, document.title, location.href);
+      window.addEventListener('popstate', function (event)
+      {
+      history.pushState(null, document.title, location.href);
+      });
   } catch (error) {
       console.error(error);
   }
@@ -258,7 +264,10 @@ const getSha = async (owner, repo, path) => {
   }
     function sendAndReload(score , quizDataLength) {
       setStatsUser(score , quizDataLength);
-      
+      navBar.style.display = "grid"
+      Bar.style.display = "block"
+      BarChild[0].style.display = "block"
+      BarChild[1].style.display = "block"
     }
     import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 		const octokit = new Octokit();
@@ -320,7 +329,7 @@ const getSha = async (owner, repo, path) => {
               content: encodedUserData,
               sha : sha
             });
-            e.preventDefault();
+            //e.preventDefault();
             console.log("sent to git");
           } catch (error) {
             console.error(error);
@@ -367,10 +376,15 @@ quizNav.addEventListener('click', () => {
   $("#dashboard-user").fadeIn(800);
   userDashboard.style.display = "block"
   quizSection.style.display = "none"
+  /*Bar.style.display = "block"
+  BarChild[0].style.display = "block"
+    BarChild[1].style.display = "block"*/
   
 })
 userNav.addEventListener('click', () => {
   $("#container-profile-user").fadeIn(800);
+  /*Bar.style.display = "block"
+  BarChild.style.display = "block"*/
   profileSection.style.display = "block"
   $("#dash-and-quiz").fadeOut(300);
 })
