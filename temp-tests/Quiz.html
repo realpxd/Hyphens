@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+*{
+  box-sizing: border-box;
+}
+body{
+  background: linear-gradient(#2196f3 , #e91e63);
+  font-family: 'Poppins', sans-serif;
+  display: grid;
+  flex-direction:coloumn;
+  align-items: center;
+  place-items:center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+.score-section{
+	display:block;
+	position:fixed;
+	top:2rem;
+	left:2rem;
+	color:lightblue;
+	font-weight:bold;
+	font-size:1.2rem;
+}
+.quiz-container{
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  color:pink;
+  box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+  width:345px;
+  overflow: hidden;
+}
+.quiz-header{
+  padding: 1rem;
+}
+#question{
+	color:white;
+}
+h2{
+  padding: 1rem;
+  text-align: center;
+  margin: 0;
+}
+ul{
+  list-style-type: none;
+  padding: 0;
+}
+ul li{
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+ul li label{
+  cursor: pointer;
+}
+button{
+  background-color: #03cae4;
+  color: #fff;
+  border: none;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-family: inherit;
+  padding: 1.3rem;
+}
+button:active{
+  outline: none;
+  background-color: #44b927;
+}
+
+</style>
+    </head>
+    <body>
+    <div class="score-section" id="score-section">
+	    <span class="score" id="score">0 </span><span> / 9 Score</span>
+    </div>
+    <div class="quiz-container" id="quiz">
+    <div class="quiz-header" id="quiz-header">
+      <h2 id="question">Question Text</h2>
+      <ul>
+        <li>
+          <input type="radio" name="answer" id="a" class="answer">
+          <label for="a" id="a_text">Answer</label>
+        </li>
+        <li>
+          <input type="radio" name="answer" id="b" class="answer">
+          <label for="b" id="b_text">Answer</label>
+        </li>
+        <li>
+          <input type="radio" name="answer" id="c" class="answer">
+          <label for="c" id="c_text">Answer</label>
+        </li>
+        <li>
+          <input type="radio" name="answer" id="d" class="answer">
+          <label for="d" id="d_text">Answer</label>
+        </li>
+      </ul>
+    </div>
+    <button id="submit">Submit</button>
+
+<script>
+    const quizData = [
+    {
+        question: "Which language runs in a web browser?",
+        a: "Java",
+        b: "C",
+        c: "Python",
+        d: "javascript",
+        correct: "d",
+    },
+    {
+        question: "What does CSS stand for?",
+        a: "Central Style Sheets",
+        b: "Cascading Style Sheets",
+        c: "Cascading Simple Sheets",
+        d: "Cars SUVs Sailboats",
+        correct: "b",
+    },
+    {
+        question: "What does HTML stand for?",
+        a: "Hypertext Markup Language",
+        b: "Hypertext Markdown Language",
+        c: "Hyperloop Machine Language",
+        d: "Helicopters Terminals Motorboats Lamborginis",
+        correct: "a",
+    },
+    {
+        question: "What year was JavaScript launched?",
+        a: "1996",
+        b: "1995",
+        c: "1994",
+        d: "none of the above",
+        correct: "b",
+    },
+    {
+        question: "There are ___ levels of heading in HTML",
+        a: "three",
+        b: "four",
+        c: "Five",
+        d: "Six",
+        correct: "d",
+    },
+      {
+        question: " Which of the following tags do not require a terminator?",
+        a: "<Ul>",
+        b: "<br>",
+        c: "<b>",
+        d: "none of these",
+        correct: "b",
+    },
+     {
+        question: "To get the ordered list we use",
+        a: "<h1>",
+        b: "<ol>",
+        c: "<ul>",
+        d: "<br>",
+        correct: "b",
+    },
+    {
+        question: "For a particular font its size attribute can be an absolute value ranging form",
+        a: "1-10",
+        b: "1-8",
+        c: "1-9",
+        d: "1-7",
+        correct: "a",
+    },
+     {
+        question: "The following html tag is used to display the content as a moving text",
+        a: "</img>",
+        b: "<marquee>",
+        c: "<ahref>",
+        d: "</img",
+        correct: "b",
+    },
+    
+    
+];
+const quiz = document.getElementById('quiz')
+const answerEls = document.querySelectorAll('.answer')
+const questionEl = document.getElementById('question')
+const a_text = document.getElementById('a_text')
+const b_text = document.getElementById('b_text')
+const c_text = document.getElementById('c_text')
+const d_text = document.getElementById('d_text')
+const submitBtn = document.getElementById('submit')
+const qheader = document.getElementById("quiz-header")
+const scored = document.getElementById("score")
+const scoreSec = document.getElementById("score-section")
+let currentQuiz = 0
+let score = 0
+loadQuiz()
+function loadQuiz() {
+    deselectAnswers()
+    const currentQuizData = quizData[currentQuiz]
+    questionEl.innerText = currentQuizData.question
+    a_text.innerText = currentQuizData.a
+    b_text.innerText = currentQuizData.b
+    c_text.innerText = currentQuizData.c
+    d_text.innerText = currentQuizData.d
+    scoreSec.style.display = "inline-block"
+}
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false)
+}
+
+function getSelected() {
+    let answer
+    answerEls.forEach(answerEl => {
+        if(answerEl.checked) {
+            answer = answerEl.id
+        }
+    })
+    return answer
+}
+function push(){ 
+	if(currentQuiz < quizData.length) {
+	    loadQuiz()
+	} else {
+	    quiz.innerHTML = `
+	    <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+	    <button onclick="location.reload()">Reload</button>
+	    `
+	    scoreSec.style.display = "none"
+	}
+}
+submitBtn.addEventListener('click', () => {
+	const answer = getSelected()
+	if(answer) {
+		$("#quiz").fadeOut(300);
+		$("#quiz").fadeIn(800);
+	   if(answer === quizData[currentQuiz].correct) {
+	       score++
+	       scored.innerHTML = score      
+	   }
+	   	currentQuiz++
+		setTimeout(push,450);
+	}
+})
+</script>
+
+</body>     
+
+</html>

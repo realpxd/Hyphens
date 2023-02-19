@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ADMIN</title>
+        <meta name="viewport" content="width=device-width , initial-scale=1 , maximum-scale=1" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <link href="./style.css" rel="stylesheet">
+    </head>
+    <body>
+    <div class="header-container">
+      <div class="ques-num-cont">
+        <span>Qs - </span> <span class="ques-num" id="ques-num"> 1</span>
+	    </div>
+      <div>
+        <input type="text" placeholder="Class*" name="Classes" id="class-in" list="class-list">
+        <datalist id="class-list">
+          <option>Class 9th</option>
+          <option>Class 10th</option>
+          <option>Class 11th</option>
+          <option>Class 12th</option>
+        </datalist>
+      </div>
+      <div>
+        <input type="text" placeholder="Subject*" name="Subjects" id="subject-in" list="subject-list">
+        <datalist id="subject-list">
+          <option>Biology</option>
+          <optio>Chemistry</option>
+          <option>Physics</option>
+          <option>Maths</option>
+        </datalist>
+      </div>
+  </div>
+<form class="quiz-container" id="quiz-container">
+<div class="quiz-header" id="quiz-header">
+  <input placeholder="QUESTION" id="question" >
+  <ul>
+    <li>
+      <input type="radio" name="answer" id="a" class="answer">
+      <input placeholder="option" for="a" id="a_text" >
+    </li>
+    <li>
+      <input type="radio" name="answer" id="b" class="answer">
+      <input placeholder="option" for="b" id="b_text" >
+    </li>
+    <li>
+      <input type="radio" name="answer" id="c" class="answer">
+      <input placeholder="option" for="c" id="c_text" >
+    </li>
+    <li>
+      <input type="radio" name="answer" id="d" class="answer">
+      <input placeholder="option" for="d" id="d_text" >
+    </li>
+  </ul>
+	</div>
+	<input value="Next" type="submit" id="submit" readonly>
+</form>
+
+<button class="ending" id="ending">End Quiz</button>
+
+<h5 class="warning-note">Note : Quiz / Paper that will be submitted once, cannot be edit / update later. Kindly double check all the details before submitting the Quiz.  </h5>
+
+<script defer>
+	const quizCont = document.getElementById('quiz-container')
+	const ques = document.getElementById('question')
+	const a_text = document.getElementById('a_text')
+	const b_text = document.getElementById('b_text')
+	const c_text = document.getElementById('c_text')
+	const d_text = document.getElementById('d_text')
+  const endBtn =  document.getElementById('ending')
+	const submitBtn = document.getElementById('submit')
+  const quesNum = document.getElementById('ques-num')
+  const classIn = document.getElementById('class-in')
+  const subjectIn = document.getElementById("subject-in")
+  const answerEls = document.querySelectorAll('.answer')
+  
+</script>
+
+<script src="./admin-panel.js" type="module" defer></script>
+<script defer>
+
+</script>
+</body>     
+
+</html>

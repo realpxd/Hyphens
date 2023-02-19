@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CLIENT</title>
+<script src="https:ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width , initial-scale=1 , maximum-scale=1" />
+<link rel="stylesheet" href="https:cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="../client-panel/style.css" rel="stylesheet">
+</head>
+<body>
+	<div id="preloader-container">
+	    <div id="preloader"></div>
+    </div>
+	<section id="dash-and-quiz">
+	<section class="dashboard-user" id="dashboard-user">
+		<div class="dashboard-data-user" id="dashboard-data-user">
+			<div id="header-div-container">
+				<div class="header-container">
+					<div class="c-s-list" id="c-s-list">
+						<p class="class-name" id="class-name"> <b> Class : <span class="class-in-name-profile" id="class-in-name-profile"></span></b></p>
+						<i class="fa fa-gear" ></i>
+					</div>
+				</div>
+			</div>
+			<div class="a-q-user" id="a-q-user">
+				<h2>Subjects</h2>
+				<div class="slider-subjects">
+					<div class="ss-blocks" >
+						<img src="../assets/img/maths.jpg" alt="" id="Maths">
+					</div>
+					<div class="ss-blocks" id="Biology">
+						<img src="../assets/img/bio.jpg" id="Biology" alt="">
+					</div>
+					<div class="ss-blocks" id="Physics">
+						<img src="../assets/img/phy.jpg" id="Physics" alt="">
+					</div>
+					<div class="ss-blocks">
+						<img src="../assets/img/maths.jpg" alt="">
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="l-q-user">
+				<h2>Learning Material</h2>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/MF5qMW6AIvo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" allowfullscreen></iframe>
+			</div>
+		</div>
+	</section>
+	<section class="container-quiz-user" id="container-quiz-user">
+		<div class="container-ongoing-user" id="container-ongoing-user">
+			<div id="header-div-container">
+				<div class="header-container">
+					<div class="c-s-list" id="c-s-list">
+						<p class="class-name" id="class-name">Class : <span class="class-in-name" id="class-in-name"></span></p>
+						<p id="subject-in-user"> Subject : <span class="subject-in-name" id="subject-in-name"></span></p>
+					</div>
+				</div>
+			</div>
+			<div class="container-ongoing-quiz-data-user" id="container-ongoing-quiz-data-user">
+					
+				</div>
+			
+			<div class="quiz-container-user" id="quiz-container-user">
+				<div class="score-section" id="score-section">
+					<span class="score" id="score">0 </span><span>/ </span><span class="totalQues" id="totalQues"> </span><span> Score</span>
+				</div>
+				           <div class="quiz-header-user" id="quiz-header-user">
+				           <h2 id="question-user">  </h2>
+				           <ul>
+				             <li>
+				               <input type="radio" name="answer" id="a" class="answer-user">
+				               <label for="a" id="a_text_user"></label>
+				             </li>
+				             <li>
+				               <input type="radio" name="answer" id="b" class="answer-user">
+				               <label for="b" id="b_text_user"></label>
+				             </li>
+				             <li>
+				               <input type="radio" name="answer" id="c" class="answer-user">
+				               <label for="c" id="c_text_user"></label>
+				             </li>
+				             <li>
+				               <input type="radio" name="answer" id="d" class="answer-user">
+				               <label for="d" id="d_text_user"></label>
+				             </li>
+				             </ul>
+				           </div>
+				         <button id="submit-user">Next</button>
+				         </div>
+	</section>
+</section>
+	<section class="container-profile-user" id="container-profile-user">
+		<div class="container-profile-data-user" id="container-profile-data-user">
+			<div class="header-profile">
+				<h1 id="user-profile-name">User name</h1>
+				<img src="https://api.dicebear.com/5.x/identicon/svg" alt="profile-avatar" id="user-profile-image">
+			</div>
+			<div class="general-data-user" id="general-data-user">
+				<h3>General Details : </h3>
+				<p>School Name : <span id="user-profile-school"></span></p>
+				<p>Class : <span id="user-profile-class"></span></p>
+				<p>Email : <span id="user-profile-email"></span></p>
+			</div>
+
+			<div class="stats-data-user" id="stats-data-user">
+				<h3>Statistics : </h3>
+				<div id="statsChart"></div>
+			</div>
+		</div>
+	</section>
+	<div class="feed-data" id="feed-data"></div>
+	<footer id="bottom-nav">
+		<div class="nav-bar" id="nav-bar">
+			<div class="quiz-nav" id="quiz-nav">
+				<i class="fa fa-book"></i>
+			</div>
+			<div class="vertical-line"> <i></i></div>
+			<div class="user-nav" id="user-nav">
+				<i class="fa fa-user"></i>
+			</div>
+		</div>
+	</footer>
+	<script>
+		const dashNquiz = document.getElementById('dash-and-quiz')
+		const quizSection = document.getElementById('container-quiz-user')
+		const profileSection = document.getElementById('container-profile-user')
+		const quiz = document.getElementById('quiz-container-user')
+		const userDashboard = document.getElementById('dashboard-user')
+
+		const sBlocks = document.querySelectorAll('.ss-blocks')
+const subjectInName = document.getElementById('subject-in-name')
+const answerEls = document.querySelectorAll('.answer-user')
+const questionEl = document.getElementById('question-user')
+const a_text = document.getElementById('a_text_user')
+const b_text = document.getElementById('b_text_user')
+const c_text = document.getElementById('c_text_user')
+const d_text = document.getElementById('d_text_user')
+const submitBtn = document.getElementById('submit-user')
+const qheader = document.getElementById("quiz-header-user")
+const scored = document.getElementById("score")
+const totalQues = document.getElementById("totalQues")
+const scoreSec = document.getElementById("score-section")
+const navBar = document.getElementById("nav-bar")
+var classInName = document.getElementById("class-in-name")
+var classInNameProfile = document.getElementById("class-in-name-profile")
+var Bar = document.getElementById("header-div-container")
+
+var userName = document.getElementById("user-profile-name")
+var userSchool = document.getElementById("user-profile-school")
+var userCurClass = document.getElementById("user-profile-class")
+var userEmail = document.getElementById("user-profile-email")
+// var userStats = document.getElementById("stats-data-user")
+
+const quizNav = document.getElementById("quiz-nav")
+const userNav = document.getElementById("user-nav")
+
+
+var loader = document.getElementById('preloader-container');
+window.addEventListener('load' , ()=>{
+    $("#preloader-container").fadeOut(500);
+    setTimeout(function load(){
+
+    	loader.style.display = "none";
+    } , 700)
+})
+	</script>
+<script src="../client-panel/script.js" type="module" defer></script>
+</body>
+</html>

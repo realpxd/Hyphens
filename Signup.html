@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js" defer></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepak Web</title>
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+	overflow:hidden;
+}
+.wrapper {
+	overflow:hidden;
+}
+.il-block{
+    position: relative;
+    display: block;
+    align-items: center;
+    z-index: 99;
+    overflow:visible;
+    margin-top:4vh;
+    margin-left:-2rem;
+}
+
+
+.il-blocks{
+    display: block;
+    z-index: 99;
+}
+.il-block p{
+	position:relative;
+	text-align:left;
+	width:18rem;
+	font-size:2.1rem;
+	font-weight:700;
+	letter-spacing:2px;
+	color: orange;
+}
+.h-l-1{
+    font-size:2.2rem; 
+    letter-spacing:4px;
+}
+.il-block img{
+	display:block;
+	position:absolute;
+    margin-top:7vh;
+	margin-left:6rem;
+    width:auto;
+    height: 20rem;
+   /* animation:float 1s linear infinite alternate-reverse; */
+}
+@keyframes float {
+	from{margin-top:3.5rem;}
+	to{margin-top:4rem;}
+}
+
+
+.container-form{
+    display: block;
+    position: relative;
+    padding:0 1rem;
+    /* width: 100vw; */
+    z-index: 1;
+
+}
+.b-a{
+    display: grid;
+    padding: 1rem 1rem;
+    justify-content: left;
+    align-items: center;
+    place-items: center;
+    margin-top: 4vh;
+}
+.b-a input{
+    position: relative;
+    border: none;
+    outline: none;
+    background: none;
+    background:none;
+    padding: 0.7rem;
+    border-bottom: 2px solid orange;
+    width: 18rem;
+    margin:auto auto 1.5rem auto;
+    letter-spacing: 1px;
+    font-weight:700;
+    transition: 0.5s;
+    z-index: 1;
+}
+.b-a input:not(#in-email):not(#pass) {
+    text-transform: capitalize;
+}
+.b-a input:focus{
+    border-bottom: 2px solid silver;
+    color:orange;
+}
+.error-submit{
+    color: red;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+.b-b{
+    margin-top: 3vh;
+    display: flex;
+    justify-content: space-between;
+	align-items:center;
+	text-align:center;
+}
+.b-b .loginPage{
+    outline: none;
+    border: none;
+    background: none;
+    color: rgb(40, 66, 211);
+    padding: 0.5rem;
+    border-radius: 1.2rem;
+    width: 12rem;
+    height: 2rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration:none;
+    margin-top:0.7rem;
+    margin-left:-0.4rem;
+}
+.b-b input{
+    border: none;
+    outline: none;
+    background: none;
+    background: orange;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 1.2rem;
+    width: 7rem;
+    height: 2.5rem;
+    font-size: 0.8rem;
+    text-align: center;
+}
+.container-main{
+    display:grid;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+    margin:auto;
+}
+.container-o{
+    display: none;
+    height: 100vh;
+    justify-content: center;
+	align-items:center;
+    place-items: center;
+	margin:1rem;
+    overflow: hidden;
+}
+.container-o .block-o{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+    height: 50vh;
+}
+.container-o .submit{
+	display:block;
+	border: none;
+	outline: none;
+	background: none;
+	background: orange;
+	color: white;
+	padding: 0.5rem;
+	border-radius: 1.2rem;
+	width: 7rem;
+	height: 2.5rem;
+	font-size: 0.8rem;
+	text-align: center;
+    margin-top: 2rem;
+	margin-left:10rem;
+}
+.digit-group input {
+    width: 40px;
+    height: 50px;
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    color: white;
+    margin: 0 0.5rem;
+}
+.user-console{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color:red;
+    margin-top: 2rem;
+}
+@media screen and (min-height:650px){
+	.il-block{
+		margin-top:4.5vh;
+	}
+	.b-a{
+		margin-top: 7vh;
+	}
+	.b-a input{
+		margin-bottom: 3.5vh;
+	}
+	.b-b{
+		margin-top: 4vh;
+	}
+}
+</style>
+</head>      
+<body>
+<div class="wrapper">
+<section class="container-main" id="container-main">
+    <div class="il-block">
+        <img src="./assets/img/il-2.webp" class="illustration-main" alt="Illustration">
+        <p><span class="h-l-1"> Unleash your Potential , </span><br> <span class="h-l-2">Join Now</span> </p>
+    </div>
+    <main>
+    <div class="container-form">
+        <form class="user-data-form" id="user-data-form" action="">
+            <div class="blocks b-a">
+                <input type="name" placeholder="Full Name*" class="in-name" id="in-name" required>
+                <input type="text" placeholder="School Name*" class="in-schl" id="in-schl" required>
+                <input type="number" placeholder="Class*" class="in-class" id="in-class" maxlength="2" list="class-list" required>
+                    <datalist class="in-class-list" id="class-list">
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                    </datalist>
+                <input type="email" placeholder="Email*" class="in-email" id="in-email" required>
+                <input type="password" placeholder="Password*" class="pass" id="pass" minlength="8" required>
+                <p class="error-submit" id="error-submit"></p>
+            </div>
+            <div class="blocks b-b" >
+                <a href="./credentials/login.html" class="loginPage"><span>already have an account?</span></a>
+                <input type="submit" value="Get OTP"  class="submit" id="submit">
+            </div>
+        </form>
+    </div>
+	</main>
+</section>
+    <section class="container-o" id="container-o">
+        <div class="block-o" id="block-o">
+            <h1>ENTER OTP</h1>
+            <form method="get" class="digit-group" id="digit-group" data-group-name="digits" autocomplete="off">
+                <input type="number" class="otp" id="digit-1" name="digit-1" data-next="digit-2" required/>
+                <input type="number" class="otp" id="digit-2" name="digit-2" data-next="digit-3" data-previous="digit-1" required/>
+                <input type="number" class="otp" id="digit-3" name="digit-3" data-next="digit-4" data-previous="digit-2" required/>
+                <input type="number" class="otp" id="digit-4" name="digit-4" data-previous="digit-3" required/>
+                <button class="submit" id="submit-otp">Sign Up</button>
+                <p class="user-console" id="user-console">Check your email for OTP !</p>
+            </form>
+        </div>
+    </section>
+	
+</div>
+<script defer>
+    const containerMain = document.getElementById('container-main');
+    const userDataForm = document.getElementById('user-data-form');
+    var userName = document.getElementById('in-name');
+    var userSchool = document.getElementById('in-schl');
+    var userClass = document.getElementById('in-class');
+    var userEmail = document.getElementById('in-email');
+    var userPass = document.getElementById('pass');
+    const submitBtn = document.getElementById('submit');
+    const errorSubmit = document.getElementById('error-submit');
+    const otpContainer = document.getElementById('container-o');
+    const otpForm = document.getElementById('digit-group');
+    const otpInputs = document.getElementsByClassName('otp');
+    </script>
+    <script type="module" defer>
+import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+const octokit = new Octokit();
+
+
+
+
+// thisisnamansaini@gmail.com
+userDataForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const newUserData = {
+        userName: userName.value,
+        userSchool: userSchool.value,
+        userClass: userClass.value,
+        userEmail: userEmail.value ,
+        userPass: userPass.value,
+        totalQs: 0,
+        totalScore: 0
+    }
+    // console.log(newUserData);
+    // const userData = [];
+
+    const getUserData = async () => {
+        var boolForEmail = false;
+            try {
+            const response = await fetch(`https://naman77s.github.io/quizapi/userData.json`);
+            
+            console.log(response);
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            const checkUserData = await response.json();
+            console.log(checkUserData);
+            checkUserData.forEach((user) => {
+                if(user.userEmail === newUserData.userEmail){
+                    console.log(user.userEmail + " = " + newUserData.userEmail)
+                    boolForEmail = true;
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            errorSubmitEmail.innerHTML = "Failed to retrieve user data";
+        }
+        return boolForEmail;
+        };
+
+    const checkCredentials = async () => {
+    const boolForLogin = await getUserData();
+    console.log(boolForLogin + " outside");
+    return boolForLogin;
+  };
+
+
+  const isLoginSuccessful = await checkCredentials();
+
+
+    if(newUserData.userClass < 9 || newUserData.userClass > 12 || newUserData.userClass.length > 2){
+        errorSubmit.innerHTML = "Please enter a valid class";
+        userClass.focus();
+    }
+    else if(newUserData.userPass.length < 8){
+        errorSubmit.innerHTML = "Password must be atleast 8 characters long";
+        userPass.focus();
+    }
+    else if(isLoginSuccessful){
+        errorSubmit.innerHTML = "This Email already exists";
+        userEmail.focus();
+    }
+    else{
+            const r = Math.random();
+            r;
+            var otp = Math.round(r*9000+1000);
+            otp = otp.toString();
+            console.log(otp);
+            $("#container-o").fadeIn(1000);
+            otpContainer.style.display = "grid";
+            $("#container-main").fadeOut(1000);
+            containerMain.style.display = "none";
+            
+            let emailbody = `
+                <h1>Thanks for Joininig Us!!</h1> <br>
+                <h2>Here is your OTP , Please don't share this Code with Anyone : </h2> <h2 style="text-align:center;"> ${otp} </h2>
+            `;
+
+
+        Email.send({
+                SecureToken : "9674fe91-144f-470d-8d83-ca3e9f68fd19",
+                To : newUserData.userEmail,
+                From : "pinuchinu34@gmail.com",
+                Subject : "Verify your OTP",
+                Body : emailbody
+            }).then(
+                //if success it returns "OK";
+            message => {
+                if(message === "OK"){
+                    console.log("OTP sent to your email ");
+                    }else{
+                        console.log("Something went wrong, Please try again");
+                    }
+        });
+
+            
+    }
+    console.log(newUserData);  
+    function checkOtp(){
+            if(otpInputs[0].value == otp[0] && otpInputs[1].value == otp[1] && otpInputs[2].value == otp[2] && otpInputs[3].value == otp[3]){
+                rapidFire();
+                setTimeout(() => {
+                    errorSubmit.innerHTML = "Account Created Successfully";
+                    $(document.body).fadeOut(1000);
+                    window.location.href = "./credentials/login.html";
+                }, 1500);
+            }
+            else{
+                errorSubmit.innerHTML = "Please enter a valid OTP";
+            }
+          }
+    otpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        checkOtp();
+    })
+
+    function rapidFire(){
+    const getUserData = async () => {
+  try {
+      const response = await fetch(`https://naman77s.github.io/quizapi/userData.json`);
+      console.log(response);
+      if (!response.ok) {
+          throw new Error(response.statusText);
+      }
+      const prevUserData = await response.json();
+      prevUserData.push(newUserData);
+      console.log("writing on doc");
+      console.log(prevUserData);
+      return prevUserData
+  } catch (error) {
+      console.error(error);
+  }
+};
+
+
+const getSha = async (owner, repo, path) => {
+    try {
+        const { data } = await octokit.repos.getContent({
+        owner,
+        repo,
+        path
+        });
+        return data.sha;
+    } catch (error) {
+        console.error(error);
+    }
+    }
+
+    const octokitAPI = new Octokit({
+      auth: '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'
+    })
+
+        const sending = async (encodedUserData, sha) => {
+          console.log("sending to git");
+
+          try {
+            await octokitAPI.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+                
+              owner: 'naman77s',
+              repo: 'quizapi',
+              path: `userData.json`,
+              message: `Database updated`,
+              committer: {
+                name: 'Naman Saini',
+                email: 'thisispxd@gmail.com'
+              },
+              content: encodedUserData,
+              sha : sha
+            });
+
+            e.preventDefault();
+            console.log("sent to git");
+          } catch (error) {
+            console.error(error);
+            console.log("error sending data to git");
+          }
+        };
+
+async function main() {
+        const shaSet = await getSha("naman77s", "quizapi", "userData.json");
+        const shaGet = shaSet.toString();
+        console.log(shaGet);
+
+        const sha = await shaGet;
+        const updatedUserData = await getUserData();
+        var encodedUserData = btoa(JSON.stringify(updatedUserData));
+        await sending(encodedUserData, shaGet);
+    }
+    main();
+}
+});
+    </script>
+    
+<script defer>
+    $('.digit-group').find('input').each(function() {
+	$(this).attr('maxlength', 1);
+	$(this).on('keyup', function(e) {
+		parent = $($(this).parent());
+		console.log(parent);
+		if(e.keyCode === 8 || e.keyCode === 37) {
+			 prev = parent.find('input#' + $(this).data('previous'));
+			
+			if(prev.length) {
+				$(prev).select();
+			}
+		} else if((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105) || e.keyCode === 39) {
+			 next = parent.find('input#' + $(this).data('next'));
+			if(next.length) {
+				$(next).select();
+			} 
+		}
+	});
+});
+</script>
+
+<!-- totalScore
+totalQs -->
+</body>
+</html>
