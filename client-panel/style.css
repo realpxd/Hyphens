@@ -9,7 +9,7 @@ body{
   background: #fcfcfc;
   font-family: 'Poppins', sans-serif;
   height: 100vh;
-  overflow-x: hidden;
+  overflow-y: hidden;
   margin: 0;
 }
 #preloader-container{
@@ -365,7 +365,7 @@ button:active{
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin:-2rem auto;
+  margin:-1rem auto;
 }
 .header-profile h1{
   color: #03cae4;

@@ -17,7 +17,6 @@ tempObj[0].tempVal += tempVal;
 console.log(tempObj);
 // alert(tempObj);
 
-
 const getUserProfileData = async () => {
   try {
     const response = await fetch(`https://naman77s.github.io/quizapi/userData.json`);
@@ -105,6 +104,7 @@ const getQuiz = async (dirName, fileName) => {
       quiz.style.display = "block"
       containerOngoing.style.display = "none"
       Bar.style.display = "none"
+      BarChild.style.display = "none"
       $("#bottom-nav").fadeOut(100);
       $("#header-div-container").fadeOut(100);
       loadQuiz()
