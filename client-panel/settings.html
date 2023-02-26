@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta charset="UTF-8">
+    <meta name="color-scheme" content="only light">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+    :root {
+        color-scheme: only light;
+    }
+    *{
+        font-family: 'Poppins', sans-serif;
+        box-sizing: border-box;
+        -webkit-user-select: none;  /* Chrome all / Safari all */
+        -moz-user-select: none;     /* Firefox all */
+        -ms-user-select: none;      /* IE 10+ */
+        user-select: none;          /* Likely future */
+    }
+    .navTop{
+        display: flex;
+    }
+    .navTop i{
+        font-size: 1.5rem;
+        color: #000000;
+        margin: 1rem;
+        width: 100vw;
+    }
+    .data{
+        display: block;
+        align-items: center;
+        text-align: center;
+    }
+    p{
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #dda007ba;
+    }
+    hr{
+        width: 70%;
+        border: none;
+
+        border-top: 1px solid #cdcdcd;
+    }
+    .navBottom{
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        width: 90vw;
+        bottom: 2rem;
+    }
+    button{
+        background-color: #ffa500;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    h4{
+        font-size: 1rem;
+        font-weight: 600;
+        color: #b5b5b5;
+        margin: auto;
+        margin-left: 1rem;
+    }
+</style>
+</head>
+<body>
+    <div class="navTop">
+        <i onclick="window.location.href='../client-panel/index.html'" class="fa fa-arrow-left"></i>
+    </div>
+    <div class="data">
+        <p>About</p>
+        <hr>
+    </div>
+    <div class="navBottom">
+        <h4>App version v1.0</h4>
+        <button onclick="localStorage.clear()">Log out</button>
+    </div>
+</body>
+</html>

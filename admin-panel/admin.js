@@ -1,4 +1,6 @@
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+import { octokitAuthKey , repoOwner , repoName , commiterName , commiterEmail } from "../credentials/secure.js";
+
 const quizData = [];
 var count = 1;
 var submitting = false;
@@ -66,7 +68,7 @@ submitBtn.onclick = function pushing(e){
     getSel()
 
     const octokitAPI = new Octokit({
-      auth: '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'
+      auth: octokitAuthKey
     })
     
     
@@ -105,13 +107,13 @@ submitBtn.onclick = function pushing(e){
           console.log("sending to git");
           try {
             await octokitAPI.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-              owner: 'naman77s',
-              repo: 'quizapi',
+              owner: repoOwner,
+              repo: repoName,
               path: `${classInVal}/${subjectInVal}/quiz-${quizNum}.json`,
               message: `Question paper added of class : ${classInVal} and subject is ${subjectInVal}`,
               committer: {
-                name: 'Naman Saini',
-                email: 'thisispxd@gmail.com'
+                name: commiterName,
+                email: commiterEmail
               },
               content: encodedQuizData
             });

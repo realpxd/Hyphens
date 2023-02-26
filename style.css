@@ -1,8 +1,19 @@
+:root {
+    color-scheme: only light;
+  }
 *{
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;   
     overflow:hidden;
+}
+body{
+    background-color: #f9eee3;
+    /* color: #ffa500; */
 }
 .headline{
 	position:relative;
@@ -16,25 +27,30 @@
 	color: orange;
 }
 .illustration-main{
-    width: 65vw;
-    height: 35vh;
+    width: 100vw;
+    height: 100%;
     display: block;
     margin: auto;
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     align-items: center;
-    border-radius:50%;
-    border:1px solid orange;
+    /* border-radius:50%;
+    border:1px solid orange; */
     /*box-shadow:2px 1px 20px orange;*/
     object-fit:contain;
+}
+svg{
+    margin-top: 4rem;
+    margin-bottom: -0.5rem;
 }
 .container-main{
     width: 100%;
     height: 60vh;
+    background-color: orange;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top:-5rem;
+    margin-top:-3rem;
 }
 
 .login-btn , .signup-btn{
@@ -43,20 +59,22 @@
     background: none;
     background:none;
     padding: 0.7rem;
-    border: 2px solid orange;
+    border: 2px solid #f9eee3;
     border-radius: 0.5rem;
     width: 15rem;
     margin-bottom: 2rem;
     letter-spacing: 1px;
-    font-weight:500;
+    font-weight:900;
     transition: 0.5s;
+    letter-spacing: 0.5px;
+
 }
 .login-btn{
-    color: orange;
+    color: #fff;
     font-weight:700;
 }
 
 .signup-btn{
-    background: orange;
-    color: #fff;
+    background: #f9eee3;
+    color: orange;
 }
