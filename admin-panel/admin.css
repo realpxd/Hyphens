@@ -203,3 +203,17 @@ button:active{
 .quiz-nav{
   font-size: 1.2rem;
 }
+#class-in , #subject-in{
+  text-transform: capitalize;
+}
+
+@media screen and (min-height:670px) and (max-height:820px){
+  .quiz-container{
+    margin: 7rem auto 4rem auto;
+  }
+}
+@media screen and (min-height:820px){
+  .quiz-container{
+    margin: 10rem auto 5rem auto;
+  }
+}

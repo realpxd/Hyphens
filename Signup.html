@@ -265,13 +265,18 @@ body{
 </style>
 </head>      
 <body>
+<!-- Wrapper for all contents -->
 <div class="wrapper">
+    <!-- Section for Text and Image -->
 <section class="container-main" id="container-main">
     <div class="il-block">
         <img src="./assets/img/il-2.webp" class="illustration-main" alt="Illustration">
         <p><span class="h-l-1"> Unleash your Potential , </span><br> <span class="h-l-2">Join Now</span> </p>
     </div>
+
+    <!-- Main Section -->
     <main>
+    <!-- Container for Form -->
     <div class="container-form">
         <form class="user-data-form" id="user-data-form" action="">
             <div class="blocks b-a">
@@ -295,6 +300,8 @@ body{
         </form>
     </div>
 	</main>
+
+<!-- Secntion for OTP -->
 </section>
     <section class="container-o" id="container-o">
         <div class="block-o" id="block-o">
@@ -312,220 +319,242 @@ body{
 	
 </div>
 <script defer>
+    // All the DOM elements
+
+    // Containers
     const containerMain = document.getElementById('container-main');
     const userDataForm = document.getElementById('user-data-form');
+    
+    // Inputs
     var userName = document.getElementById('in-name');
     var userSchool = document.getElementById('in-schl');
     var userClass = document.getElementById('in-class');
     var userEmail = document.getElementById('in-email');
     var userPass = document.getElementById('pass');
+
+    // Buttons
     const submitBtn = document.getElementById('submit');
     const errorSubmit = document.getElementById('error-submit');
+
+    // OTP
     const otpContainer = document.getElementById('container-o');
     const otpForm = document.getElementById('digit-group');
     const otpInputs = document.getElementsByClassName('otp');
     </script>
+
+    <!-- Main Script File -->
     <script type="module" defer>
-import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
-import { octokitAuthKey , repoOwner , repoName , smtpAuthKey, smtpEmail , databaseName , commiterName , commiterEmail } from "../credentials/secure.js";
-const octokit = new Octokit();
+        // Importing the modules
+        import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
+        import { octokitAuthKey , repoOwner , repoName , smtpAuthKey, smtpEmail , databaseName , commiterName , commiterEmail } from "../credentials/secure.js";
+        // Intialized the Octokit
+        const octokit = new Octokit();
 
-
-
-
-// thisisnamansaini@gmail.com
-userDataForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const newUserData = {
-        userName: userName.value,
-        userSchool: userSchool.value,
-        userClass: userClass.value,
-        userEmail: userEmail.value ,
-        userPass: userPass.value,
-        totalQs: 0,
-        totalScore: 0
-    }
-    // console.log(newUserData);
-    // const userData = [];
-
-    const getUserData = async () => {
-        var boolForEmail = false;
-            try {
-            const response = await fetch(`https://${repoOwner}.github.io/${repoName}/${databaseName}`);
-            
-            console.log(response);
-            if (!response.ok) {
-                throw new Error(response.statusText);
-            }
-            const checkUserData = await response.json();
-            console.log(checkUserData);
-            checkUserData.forEach((user) => {
-                if(user.userEmail === newUserData.userEmail){
-                    console.log(user.userEmail + " = " + newUserData.userEmail)
-                    boolForEmail = true;
-                }
-            });
-        } catch (error) {
-            console.error(error);
-            errorSubmitEmail.innerHTML = "Failed to retrieve user data";
-        }
-        return boolForEmail;
-        };
-
-    const checkCredentials = async () => {
-    const boolForLogin = await getUserData();
-    console.log(boolForLogin + " outside");
-    return boolForLogin;
-  };
-
-
-  const isLoginSuccessful = await checkCredentials();
-
-
-    if(newUserData.userClass < 9 || newUserData.userClass > 12 || newUserData.userClass.length > 2){
-        errorSubmit.innerHTML = "Please enter a valid class";
-        userClass.focus();
-    }
-    else if(newUserData.userPass.length < 8){
-        errorSubmit.innerHTML = "Password must be atleast 8 characters long";
-        userPass.focus();
-    }
-    else if(isLoginSuccessful){
-        errorSubmit.innerHTML = "This Email already exists";
-        userEmail.focus();
-    }
-    else{
-            const r = Math.random();
-            r;
-            var otp = Math.round(r*9000+1000);
-            otp = otp.toString();
-            console.log(otp);
-            $("#container-o").fadeIn(1000);
-            otpContainer.style.display = "grid";
-            $("#container-main").fadeOut(1000);
-            containerMain.style.display = "none";
-            
-            let emailbody = `
-                <h1>Thanks for Joininig Us!!</h1> <br>
-                <h2>Here is your OTP , Please don't share this Code with Anyone : </h2> <h2 style="text-align:center;"> ${otp} </h2>
-            `;
-
-
-        Email.send({
-                SecureToken : smtpAuthKey,
-                To : newUserData.userEmail,
-                From : smtpEmail,
-                Subject : "Verify your OTP",
-                Body : emailbody
-            }).then(
-                //if success it returns "OK";
-            message => {
-                if(message === "OK"){
-                    console.log("OTP sent to your email ");
-                    }else{
-                        console.log("Something went wrong, Please try again");
-                    }
-        });
-
-            
-    }
-    console.log(newUserData);  
-    function checkOtp(){
-            if(otpInputs[0].value == otp[0] && otpInputs[1].value == otp[1] && otpInputs[2].value == otp[2] && otpInputs[3].value == otp[3]){
-                rapidFire();
-                setTimeout(() => {
-                    errorSubmit.innerHTML = "Account Created Successfully";
-                    $(document.body).fadeOut(1000);
-                    window.location.href = "./credentials/login.html";
-                }, 1500);
-            }
-            else{
-                errorSubmit.innerHTML = "Please enter a valid OTP";
-            }
-          }
-    otpForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        checkOtp();
-    })
-
-    function rapidFire(){
-    const getUserData = async () => {
-  try {
-      const response = await fetch(`https://${repoOwner}.github.io/${repoName}/${databaseName}`);
-      console.log(response);
-      if (!response.ok) {
-          throw new Error(response.statusText);
-      }
-      const prevUserData = await response.json();
-      prevUserData.push(newUserData);
-      console.log("writing on doc");
-      console.log(prevUserData);
-      return prevUserData
-  } catch (error) {
-      console.error(error);
-  }
-};
-
-
-const getSha = async (owner, repo, path) => {
-    try {
-        const { data } = await octokit.repos.getContent({
-        owner,
-        repo,
-        path
-        });
-        return data.sha;
-    } catch (error) {
-        console.error(error);
-    }
-    }
-
-    const octokitAPI = new Octokit({
-      auth: octokitAuthKey
-    })
-
-        const sending = async (encodedUserData, sha) => {
-          console.log("sending to git");
-
-          try {
-            await octokitAPI.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-                
-              owner: repoOwner,
-              repo: repoName,
-              path: databaseName,
-              message: `Database updated`,
-              committer: {
-                name: commiterName,
-                email: commiterEmail
-              },
-              content: encodedUserData,
-              sha : sha
-            });
-
+        // Event Listener for the form
+        userDataForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            console.log("sent to git");
-          } catch (error) {
-            console.error(error);
-            console.log("error sending data to git");
-          }
+
+            // Getting the data from the form
+            const newUserData = {
+                userName: userName.value,
+                userSchool: userSchool.value,
+                userClass: userClass.value,
+                userEmail: userEmail.value ,
+                userPass: userPass.value,
+                totalQs: 0,
+                totalScore: 0
+            }
+
+            // Getting the user data from the database and checking if the email already exists or not then updating the database with the new user data
+            const getUserData = async () => {
+                var boolForEmail = false;
+                    try {
+                    const response = await fetch(`https://${repoOwner}.github.io/${repoName}/${databaseName}`);
+                    
+                    console.log(response);
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    const checkUserData = await response.json();
+                    console.log(checkUserData);
+                    checkUserData.forEach((user) => {
+                        if(user.userEmail === newUserData.userEmail){
+                            console.log(user.userEmail + " = " + newUserData.userEmail)
+                            boolForEmail = true;
+                        }
+                    });
+                } catch (error) {
+                    console.error(error);
+                    errorSubmitEmail.innerHTML = "Failed to retrieve user data";
+                }
+                return boolForEmail;
+                };
+
+            // Calling the getUserData function
+            const checkCredentials = async () => {
+            const boolForLogin = await getUserData();
+            console.log(boolForLogin + " outside");
+            return boolForLogin;
         };
 
-async function main() {
-        const shaSet = await getSha(repoOwner, repoName, databaseName);
-        const shaGet = shaSet.toString();
-        console.log(shaGet);
+        // Calling the checkCredentials function
+        const isLoginSuccessful = await checkCredentials();
 
-        const sha = await shaGet;
-        const updatedUserData = await getUserData();
-        var encodedUserData = btoa(JSON.stringify(updatedUserData));
-        await sending(encodedUserData, shaGet);
-    }
-    main();
-}
-});
+        // Checking if the user data is valid or not
+            if(newUserData.userClass < 9 || newUserData.userClass > 12 || newUserData.userClass.length > 2){
+                errorSubmit.innerHTML = "Please enter a valid class";
+                userClass.focus();
+            }
+            else if(newUserData.userPass.length < 8){
+                errorSubmit.innerHTML = "Password must be atleast 8 characters long";
+                userPass.focus();
+            }
+            // Checking if the Email already exists or not
+            else if(isLoginSuccessful){
+                errorSubmit.innerHTML = "This Email already exists";
+                userEmail.focus();
+            }
+            // If everything is fine then otp will be sent to the user email
+            else{
+                    const r = Math.random();
+                    r;
+                    var otp = Math.round(r*9000+1000);
+                    otp = otp.toString();
+                    console.log(otp);
+                    $("#container-o").fadeIn(1000);
+                    otpContainer.style.display = "grid";
+                    $("#container-main").fadeOut(1000);
+                    containerMain.style.display = "none";
+                    
+                    let emailbody = `
+                        <h1>Thanks for Joininig Us!!</h1> <br>
+                        <h2>Here is your OTP , Please don't share this Code with Anyone : </h2> <h2 style="text-align:center;"> ${otp} </h2>
+                    `;
+
+                // Sending the OTP to the user email
+                Email.send({
+                        SecureToken : smtpAuthKey,
+                        To : newUserData.userEmail,
+                        From : smtpEmail,
+                        Subject : "Verify your OTP",
+                        Body : emailbody
+                    }).then(
+                        //if success it returns "OK";
+                    message => {
+                        if(message === "OK"){
+                            console.log("OTP sent to your email ");
+                            }else{
+                                console.log("Something went wrong, Please try again");
+                            }
+                });
+
+                    
+            }
+            console.log(newUserData);  
+
+            // Function to check the OTP
+            function checkOtp(){
+                    if(otpInputs[0].value == otp[0] && otpInputs[1].value == otp[1] && otpInputs[2].value == otp[2] && otpInputs[3].value == otp[3]){
+                        rapidFire();
+                        setTimeout(() => {
+                            errorSubmit.innerHTML = "Account Created Successfully";
+                            $(document.body).fadeOut(1000);
+                            window.location.href = "./credentials/login.html";
+                        }, 1500);
+                    }
+                    else{
+                        errorSubmit.innerHTML = "Please enter a valid OTP";
+                    }
+                }
+            
+            // Event Listener for the OTP form
+            otpForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                checkOtp();
+            })
+
+            // Function to update the database
+            function rapidFire(){
+
+            // Getting the DATA of the database
+            const getUserData = async () => {
+                try {
+                    const response = await fetch(`https://${repoOwner}.github.io/${repoName}/${databaseName}`);
+                    console.log(response);
+                    if (!response.ok) {
+                        throw new Error(response.statusText);
+                    }
+                    const prevUserData = await response.json();
+                    prevUserData.push(newUserData);
+                    console.log("writing on doc");
+                    console.log(prevUserData);
+                    return prevUserData
+                } catch (error) {
+                    console.error(error);
+                }
+                };
+
+        // Function to get the SHA of the database file
+        const getSha = async (owner, repo, path) => {
+            try {
+                const { data } = await octokit.repos.getContent({
+                owner,
+                repo,
+                path
+                });
+                return data.sha;
+            } catch (error) {
+                console.error(error);
+            }
+            }
+
+            const octokitAPI = new Octokit({
+            auth: octokitAuthKey
+            })
+
+                // Function to send the updated database to the github
+                const sending = async (encodedUserData, sha) => {
+                console.log("sending to git");
+
+                try {
+                    await octokitAPI.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+                        
+                    owner: repoOwner,
+                    repo: repoName,
+                    path: databaseName,
+                    message: `Database updated`,
+                    committer: {
+                        name: commiterName,
+                        email: commiterEmail
+                    },
+                    content: encodedUserData,
+                    sha : sha
+                    });
+
+                    e.preventDefault();
+                    console.log("sent to git");
+                } catch (error) {
+                    console.error(error);
+                    console.log("error sending data to git");
+                }
+                };
+        // Calling the main function
+        async function main() {
+                const shaSet = await getSha(repoOwner, repoName, databaseName);
+                const shaGet = shaSet.toString();
+                console.log(shaGet);
+
+                const sha = await shaGet;
+                const updatedUserData = await getUserData();
+                var encodedUserData = btoa(JSON.stringify(updatedUserData));
+                await sending(encodedUserData, shaGet);
+            }
+            main();
+        }
+        });
     </script>
     
+<!-- Script for OTP -->
 <script defer>
     $('.digit-group').find('input').each(function() {
 	$(this).attr('maxlength', 1);
@@ -547,8 +576,5 @@ async function main() {
 	});
 });
 </script>
-
-<!-- totalScore
-totalQs -->
 </body>
 </html>

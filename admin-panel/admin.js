@@ -1,13 +1,16 @@
+// Importing the required modules
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 import { octokitAuthKey , repoOwner , repoName , commiterName , commiterEmail } from "../credentials/secure.js";
 
+// Intial database
 const quizData = [];
+
+// Local variables
 var count = 1;
 var submitting = false;
 let endQuizClicked = false;
 
-
-
+// Function to submit the current question 
 submitBtn.onclick = function pushing(e){
   e.preventDefault();
   function countQues(){
@@ -15,9 +18,9 @@ submitBtn.onclick = function pushing(e){
     quesNum.innerHTML = count
     return count
   }
-  
   console.log(quizData);
   
+  // Function to get the selected answer
   function getSelected() {
     let answer
     answerEls.forEach(answerEl => {
@@ -28,10 +31,12 @@ submitBtn.onclick = function pushing(e){
     return answer
   }
 
+  // Function to deselect the answers after submitting the question to Conitnue writing next question or submit quiz paper
   function deselectAnswers() {
     answerEls.forEach(answerEl => answerEl.checked = false)
   }
 
+  // Function for pushing the question to the intial database
   function selectedAns() {
     countQues()
     const answer = getSelected()
@@ -46,6 +51,7 @@ submitBtn.onclick = function pushing(e){
     quizData.push(newQuiz);
   }
 
+  // Function to get the selected answer or check if any answer is selected or not
   function getSel() {
     let answerSelected = false;
     answerEls.forEach(answerEl => {
@@ -65,18 +71,19 @@ submitBtn.onclick = function pushing(e){
       alert("Please select an answer before submitting the Quiz");
     }
   }
+    // Calling the function
     getSel()
 
     const octokitAPI = new Octokit({
       auth: octokitAuthKey
     })
-    
-    
+    // Function to submit the quiz paper to the github repository
     endBtn.onclick = function endQuiz() {
       e.preventDefault();
       console.log("end quiz clicked");
       submitting = !submitting;
 
+      // Function to get the current date and time
       let date = new Date();
       let year = date.getFullYear();
       let month = date.getMonth() + 1;
@@ -90,9 +97,10 @@ submitBtn.onclick = function pushing(e){
       let seconds = date.getSeconds();
       seconds = seconds < 10 ? '0' + seconds : seconds;
 
+      // Creating the file name
       let quizNum = year + '-' + month + '-' + day + '_' + hours + '-' + minutes + '-' + seconds;
 
-
+      // Function to send the data to the github repository
       if(submitting) {
         endBtn.innerHTML = "Confirm Submit"
       } else {
@@ -100,6 +108,8 @@ submitBtn.onclick = function pushing(e){
         console.log("started sending to git");
         const classInVal = classIn.value.replace(/ /g, "_");
         const subjectInVal = subjectIn.value.replace(/ /g, "_");
+
+        // Sending the data to the github repository
         const sending = async () => {
           getSel();
           var encodedQuizData = btoa(JSON.stringify(quizData));
@@ -131,6 +141,7 @@ submitBtn.onclick = function pushing(e){
           }
         };
         
+        // Checking if the class name and subject name is entered or not
         if(classInVal==="" || subjectInVal===""){
           alert("Please enter the Class name & Subject name");
           submitting = true;

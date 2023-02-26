@@ -5,10 +5,13 @@
         <meta charset="UTF-8">
         <meta name="color-scheme" content="only light">
         <meta name="viewport" content="width=device-width , initial-scale=1 , maximum-scale=1" />
+        <!-- Jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <!-- CSS -->
         <link href="../admin-panel/admin.css" rel="stylesheet">
     </head>
     <body>
+    <!-- Header Section -->
     <div class="header-container">
       <div class="ques-num-cont">
         <span>Quiz - </span> <span class="ques-num" id="ques-num"> 1</span>
@@ -26,12 +29,16 @@
         <input type="text" placeholder="Subject*" name="Subjects" id="subject-in" list="subject-list">
         <datalist id="subject-list">
           <option>Biology</option>
-          <optio>Chemistry</option>
+          <option>Chemistry</option>
           <option>Physics</option>
           <option>Maths</option>
+          <option>English</option>
+          <option>Social Science</option>
         </datalist>
       </div>
   </div>
+
+<!-- Quiz Form Section -->
 <form class="quiz-container" id="quiz-container">
 <div class="quiz-header" id="quiz-header">
   <input placeholder="QUESTION" id="question" >
@@ -56,12 +63,11 @@
 	</div>
 	<input value="Next" type="submit" id="submit" readonly>
 </form>
-
 <button class="ending" id="ending">End Quiz</button>
-
 <h5 class="warning-note">Note : Quiz / Paper that will be submitted once, cannot be edit / update later. Kindly double check all the details before submitting the Quiz.  </h5>
 
 <script defer>
+  // All the DOM elements
 	const quizCont = document.getElementById('quiz-container')
 	const ques = document.getElementById('question')
 	const a_text = document.getElementById('a_text')
@@ -74,13 +80,9 @@
   const classIn = document.getElementById('class-in')
   const subjectIn = document.getElementById("subject-in")
   const answerEls = document.querySelectorAll('.answer')
-  
 </script>
 
+<!-- Main Script File -->
 <script src="../admin-panel/admin.js" type="module" defer></script>
-<script defer>
-
-</script>
 </body>     
-
 </html>

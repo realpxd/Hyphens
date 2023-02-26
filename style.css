@@ -78,3 +78,16 @@ svg{
     background: #f9eee3;
     color: orange;
 }
+
+@media screen and (min-height:620px) and (max-height:720px) {
+    .login-btn , .signup-btn{
+        font-size: 1rem;
+    }
+}
+@media screen and (min-height:820px) {
+    .login-btn , .signup-btn{
+        font-size: 1.3rem;
+        padding: 0.7rem 1rem;
+        width: 17rem;
+    }
+}
