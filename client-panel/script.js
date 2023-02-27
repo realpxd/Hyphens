@@ -111,10 +111,10 @@ getUserClassDataOut()
 // Subjects slider 
   //  Subjects List
   const subjectsList = {
-    "Class_9th" : ["Maths"],
-    "Class_10th" : ["Maths" , "Biology"],
-    "Class_11th" : ["Maths"],
-    "Class_12th" : ["Maths"]
+    "Class_9th" : ["Maths" , "Biology" , "Physics"],
+    "Class_10th" : ["Maths" , "Biology" , "Physics"],
+    "Class_11th" : ["Maths" , "Biology" , "Physics"],
+    "Class_12th" : ["Maths" , "Biology" , "Physics"]
   }
 
   // Local variable for subjects slider
