@@ -23,12 +23,15 @@
 	    <div id="preloader"></div>
     </div>
 
+	<!-- PROMPT -->
+	<div class="prompt-box" id="prompt-box">
+	</div>
+
 	<!-- Main content -->
 	<section id="dash-and-quiz">
 
 	<!-- Section for User UI of Front Page -->
 	<section class="dashboard-user" id="dashboard-user">
-
 		<div class="dashboard-data-user" id="dashboard-data-user">
 			<!-- Header Navigation -->
 			<div id="header-div-container">
@@ -90,7 +93,7 @@
 				</div>
 			</div>
 
-			<!-- All the available quiz files on the server will be displayed withing this div -->
+			<!-- All the available quiz files on the server will be displayed within this div -->
 			<div class="container-ongoing-quiz-data-user" id="container-ongoing-quiz-data-user"></div>
 			
 			<!-- Quiz Section -->
@@ -169,7 +172,10 @@
 
 	<script>
 		// ALl VARS AND CONSTS
-
+		
+		// Prompt Box
+		const promptBox = document.getElementById("prompt-box")
+		
 		// Consts related to Different Sections
 		const dashNquiz = document.getElementById('dash-and-quiz')
 		const quizSection = document.getElementById('container-quiz-user')

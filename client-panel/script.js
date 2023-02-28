@@ -110,12 +110,12 @@ getUserClassDataOut()
 
 // Subjects slider 
   //  Subjects List
-  const subjectsList = {
-    "Class_9th" : ["Maths" , "Biology" , "Physics"],
-    "Class_10th" : ["Maths" , "Biology" , "Physics"],
-    "Class_11th" : ["Maths" , "Biology" , "Physics"],
-    "Class_12th" : ["Maths" , "Biology" , "Physics"]
-  }
+	const subjectsList = {
+	  "Class_9th" : ["Maths" , "Biology" , "Physics"],
+	  "Class_10th" : ["Maths" , "Biology" , "Physics"],
+	  "Class_11th" : ["Maths" , "Biology" , "Physics"],
+	  "Class_12th" : ["Maths" , "Biology" , "Physics"]
+	}
 
   // Local variable for subjects slider
   let subjectsContainer = "";
@@ -198,7 +198,7 @@ const displayFiles = async (dirName) => {
         // Looping through the data to get the file name and displaying it
 	      fileData.forEach(file => {
 	        const ongoingFeedData = `
-	          <div class="quiz-box-user" id="quiz-box-user" onclick="getQuiz('${dirName}', '${file.name}')">
+	          <div class="quiz-box-user" id="quiz-box-user" onclick="showConfirmBox('${dirName}', '${file.name}')">
 	            ${file.name}
 	          </div> <hr>
 	        `;
@@ -210,6 +210,28 @@ const displayFiles = async (dirName) => {
     } catch (error) {
       console.error(error);
     }
+}
+
+// Confirm Box to start the quiz
+function showConfirmBox(dirName, fileName){
+	let prompt = `
+		<div class="prompt" id="prompt">
+			<h2> Start Quiz? </h2>
+			<p> Please confirm that you want to start the quiz , It might take long time to complete. You can't go back once the quiz been started </p>
+			<button onclick="removePrompt(this)"> Cancel </button>
+			<button onclick="getQuiz('${dirName}', '${fileName}'); removePrompt(this)"> Start </button>
+		</div>
+	`
+	$('.prompt-box').fadeIn(70);
+	promptBox.style.display = "flex";
+	promptBox.insertAdjacentHTML("beforeend" , prompt);
+	
+}
+
+function removePrompt(prompt) {
+  prompt.parentNode.remove();
+  $('.prompt-box').fadeOut(100);
+  promptBox.style.display = "none";
 }
   
 // Replacing and setting the quiz files with the subjects slider
@@ -424,3 +446,5 @@ window.removeSubject = removeSubject;
 window.replaceQp = replaceQp;
 window.getQuiz = getQuiz;
 window.sendAndReload = sendAndReload;
+window.showConfirmBox = showConfirmBox;
+window.removePrompt = removePrompt;
