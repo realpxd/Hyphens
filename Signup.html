@@ -546,7 +546,7 @@ body{
                 const sha = await shaGet;
                 const updatedUserData = await setUserData();
                 var encodedUserData = btoa(JSON.stringify(updatedUserData));
-                await sending(encodedUserData, shaGet);
+                await sending(encodedUserData, sha);
             }
             main();
         }
