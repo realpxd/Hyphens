@@ -278,7 +278,7 @@ body{
     <main>
     <!-- Container for Form -->
     <div class="container-form">
-        <form class="user-data-form" id="user-data-form" action="">
+        <form class="user-data-form" id="user-data-form" action="" >
             <div class="blocks b-a">
                 <input type="name" placeholder="Full Name*" class="in-name" id="in-name" required>
                 <input type="text" placeholder="School Name*" class="in-schl" id="in-schl" required>
@@ -346,14 +346,13 @@ body{
     <script type="module" defer>
         // Importing the modules
         import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
-        import { octokitAuthKey , repoOwner , repoName , smtpAuthKey, smtpEmail , databaseName , commiterName , commiterEmail } from "../credentials/secure.js";
+        import { octokitAuthKey , repoOwner , repoName , smtpAuthKey, smtpEmail , databaseName , commiterName , commiterEmail } from "./credentials/secure.js";
         // Intialized the Octokit
         const octokit = new Octokit();
-
+        
         // Event Listener for the form
         userDataForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
             // Getting the data from the form
             const newUserData = {
                 userName: userName.value,
@@ -458,8 +457,8 @@ body{
                         rapidFire();
                         setTimeout(() => {
                             errorSubmit.innerHTML = "Account Created Successfully";
-                            $(document.body).fadeOut(1000);
-                            window.location.href = "./credentials/login.html";
+                            //$(document.body).fadeOut(1000);
+                            //window.location.href = "./credentials/login.html";
                         }, 1500);
                     }
                     else{
@@ -477,7 +476,7 @@ body{
             function rapidFire(){
 
             // Getting the DATA of the database
-            const getUserData = async () => {
+            const setUserData = async () => {
                 try {
                     const response = await fetch(`https://${repoOwner}.github.io/${repoName}/${databaseName}`);
                     console.log(response);
@@ -513,22 +512,22 @@ body{
             })
 
                 // Function to send the updated database to the github
-                const sending = async (encodedUserData, sha) => {
+                const sending = async (encodedUserData, shaName) => {
                 console.log("sending to git");
 
                 try {
                     await octokitAPI.request('PUT /repos/{owner}/{repo}/contents/{path}', {
                         
-                    owner: repoOwner,
-                    repo: repoName,
-                    path: databaseName,
+                    owner: "realpxd",
+                    repo: "quizapi",
+                    path: "userData.json",
                     message: `Database updated`,
                     committer: {
-                        name: commiterName,
-                        email: commiterEmail
+                        name: "Naman Saini",
+                        email: "thisispxd@gmail.com"
                     },
                     content: encodedUserData,
-                    sha : sha
+                    sha : shaName
                     });
 
                     e.preventDefault();
@@ -542,10 +541,10 @@ body{
         async function main() {
                 const shaSet = await getSha(repoOwner, repoName, databaseName);
                 const shaGet = shaSet.toString();
-                console.log(shaGet);
+                console.log(shaGet + " sha");
 
                 const sha = await shaGet;
-                const updatedUserData = await getUserData();
+                const updatedUserData = await setUserData();
                 var encodedUserData = btoa(JSON.stringify(updatedUserData));
                 await sending(encodedUserData, shaGet);
             }
