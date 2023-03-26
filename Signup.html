@@ -457,8 +457,8 @@ body{
                         rapidFire();
                         setTimeout(() => {
                             errorSubmit.innerHTML = "Account Created Successfully";
-                            //$(document.body).fadeOut(1000);
-                            //window.location.href = "./credentials/login.html";
+                            $(document.body).fadeOut(1000);
+                            window.location.href = "./credentials/login.html";
                         }, 1500);
                     }
                     else{
@@ -518,13 +518,13 @@ body{
                 try {
                     await octokitAPI.request('PUT /repos/{owner}/{repo}/contents/{path}', {
                         
-                    owner: "realpxd",
-                    repo: "quizapi",
-                    path: "userData.json",
+                    owner: repoOwner,
+                    repo: repoName,
+                    path: databaseName,
                     message: `Database updated`,
                     committer: {
-                        name: "Naman Saini",
-                        email: "thisispxd@gmail.com"
+                        name: commiterName,
+                        email: commiterEmail
                     },
                     content: encodedUserData,
                     sha : shaName

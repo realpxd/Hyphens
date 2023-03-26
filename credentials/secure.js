@@ -1,4 +1,4 @@
-export var octokitAuthKey = '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';
+export var octokitAuthKey = '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';
 export var repoOwner = 'realpxd';
 export var repoName = 'quizapi';
 export var smtpAuthKey = "9674fe91-144f-470d-8d83-ca3e9f68fd19";
