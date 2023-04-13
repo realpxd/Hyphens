@@ -143,8 +143,9 @@ submitBtn.onclick = function pushing(e){
 
             e.preventDefault();
             console.log("sent to git");
+            alert("Data uploaded succesfully. \n Now refresh this page to upload next Question Paper. ✨");
           } catch (error) {
-            alert(error);
+            alert(error + "\n Report this information to the developers.");
             console.log("error sending data to git");
           }
         };
