@@ -215,16 +215,16 @@ button:active{
 
 @media screen and (min-height:670px) and (max-height:720px){
   .quiz-container{
-    margin: 5rem auto 4rem auto;
+    margin: 7rem auto 4rem auto;
   }
 }
 @media screen and (min-height:720px) and (max-height:820px){
   .quiz-container{
-    margin: 8rem auto 5rem auto;
+    margin: 10rem auto 5rem auto;
   }
 }
 @media screen and (min-height:820px){
   .quiz-container{
-    margin: 10rem auto 5rem auto;
+    margin: 12rem auto 5rem auto;
   }
 }
