@@ -12,31 +12,112 @@
     </head>
     <body>
     <!-- Header Section -->
-    <div class="header-container">
+    <style>
+      .header-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .ques-num-cont{
+        text-align: center;
+        width: 100%;
+       
+      }
+      .option-list{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      }
+      select{
+        border: none;
+        border-radius: 3px;
+        border: 1px solid aqua;
+        color: red
+      }
+    </style>
+     <div class="header-container">
       <div class="ques-num-cont">
-        <span>Quiz - </span> <span class="ques-num" id="ques-num"> 1</span>
+                <span>Ques - </span> <span class="ques-num" id="ques-num"> 1</span>
 	    </div>
       <div>
-        <input type="text" placeholder="Class*" name="Classes" id="class-in" list="class-list">
-        <datalist id="class-list">
-          <option>Class 9th</option>
-          <option>Class 10th</option>
-          <option>Class 11th</option>
-          <option>Class 12th</option>
-        </datalist>
+        <div class="options-list">
+        <select id="classList">
+          <option value="none">Class</option>
+          <option value="class_9th">Class 9th</option>
+          <option value="class_10th">Class 10th</option>
+          <option value="class_11th">Class 11th</option>
+          <option value="class_12th">Class 12th</option>
+        </select>
+        <select id="subjectList">
+          <option value="none">Subject</option>
+          <option value="biology">Biology</option>
+          <option value="chemistry">Chemistry</option>
+          <option value="maths">Maths</option>
+          <option value="english">English</option>
+          <option value="social_science">Social Science</option>
+        </select>
+        <select id="chapterList">
+          <option value="none">Chapter</option>
+        </select>
       </div>
-      <div>
-        <input type="text" placeholder="Subject*" name="Subjects" id="subject-in" list="subject-list">
-        <datalist id="subject-list">
-          <option>Biology</option>
-          <option>Chemistry</option>
-          <option>Physics</option>
-          <option>Maths</option>
-          <option>English</option>
-          <option>Social Science</option>
-        </datalist>
       </div>
+      <p id="chpName" style="padding: 2px;"></p>
   </div>
+   <!-- script for displaying chapter name in header -->
+  <script>
+    const subs = document.getElementById("subjectList");
+    const chapters = document.getElementById("chapterList");
+    const chpName = document.getElementById("chpName"); 
+    subs.addEventListener('change',()=>{
+      var chosen = subs.value;
+      if(chosen == 'biology')
+      {
+        chapters.innerHTML = `
+        <option value="The Living World">1</option>
+        <option value="Biological Classification">2</option>
+        <option value="Plant Kingdom">3</option>
+        <option value="Animal Kingdom">4</option>
+        <option value="Morphology of Flowering Plants">5</option>
+        <option value="Anatomy of Flowering Plants">6</option>
+        <option value="Structural Organisation in Animal">7</option>
+        <option value="Cell: The Unit of Life">8</option>
+        <option value="Biomolecules">9</option>
+        <option value="Cell Cycle and Cell Division">10</option>
+        <option value="Transport in Plants">11</option>
+        <option value="Mineral Nutrition">12</option>
+        <option value="Photosynthesis in Higher Plants">13</option>
+        <option value="Respiration in Plants">14</option>
+        <option value="Plants Growth and Development">15</option>
+        <option value="Digestion and Absorption">16</option>
+        <option value="Breathing and Exchange of Gases">17</option>
+        <option value="Body Fluids and Circulation">18</option>
+        <option value="Excretory Products and their Elimination">19</option>
+        <option value="Locomotion and Movement">20</option>
+        <option value="Nerual Control and Co-ordination">21</option>
+        <option value="Chemical Co-ordination and Inegration">22</option>
+        <option value="Reproduction in Organisms">23</option>
+        <option value="Sexual Reproduction in Flowering Plants">24</option>
+        <option value="Human Reproduction">25</option>
+        <option value="Reproductive Health">26</option>
+        <option value="Principles of Inheritance and Variations">27</option>
+        <option value="Molecular Basis of Inheritance">28</option>
+        <option value="Evolution">29</option>
+        <option value="Human Health and Disease">30</option>
+        <option value="Strategies for Enhancement in Food Production">31</option>
+        <option value="Microbes in Human Welfare">32</option>
+        <option value="Biotechnology: Principles & Processes">33</option>
+        <option value="Biotechnology and its Applications">34</option>
+        <option value="Organisms and Production">35</option>
+        <option value="Ecosystem">36</option>
+        <option value="Biodiversity and Conservation">37</option>
+        <option value="Environmental Issues">38</option> `
+      }
+    })
+    chapters.addEventListener("change",()=>{
+      chpName.innerText = chapters.value;
+    })
+</script>
 
 <!-- Quiz Form Section -->
 <form class="quiz-container" id="quiz-container">
@@ -61,11 +142,13 @@
     </li>
   </ul>
 	</div>
+  <div class="hintBox">
+    <h3 style="text-align: center;">Hint Box</h3>
+    <input type="text"  style=" margin-left: 7vw; text-align: center; height: 40px; border: 1px solid black;" placeholder="Enter hint here..." id="hint">
+  </div>
 	<input value="Next" type="submit" id="submit" readonly>
 </form>
 <button class="ending" id="ending">End Quiz</button>
-<h5 class="warning-note">Note : Quiz / Paper that will be submitted once, cannot be edit / update later. Kindly double check all the details before submitting the Quiz.  </h5>
-
 <script defer>
   // All the DOM elements
 	const quizCont = document.getElementById('quiz-container')
@@ -77,9 +160,11 @@
   const endBtn =  document.getElementById('ending')
 	const submitBtn = document.getElementById('submit')
   const quesNum = document.getElementById('ques-num')
-  const classIn = document.getElementById('class-in')
-  const subjectIn = document.getElementById("subject-in")
+  const classIn = document.getElementById('classList')
+  const subjectIn = document.getElementById("subjectList")
+    const chapterIn = document.getElementById("chapterList")
   const answerEls = document.querySelectorAll('.answer')
+	const hintIn = document.getElementById("hint")
 </script>
 
 <!-- Main Script File -->

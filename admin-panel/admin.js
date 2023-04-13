@@ -1,3 +1,4 @@
+
 // Importing the required modules
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 import { octokitAuthKey , repoOwner , repoName , commiterName , commiterEmail } from "../credentials/secure.js";
@@ -13,6 +14,11 @@ let endQuizClicked = false;
 // Function to submit the current question 
 submitBtn.onclick = function pushing(e){
   e.preventDefault();
+/*  const classInVal = classIn.value.replace(/ /g, "_");
+  const subjectInVal = subjectIn.value.replace(/ /g, "_");
+  const chapterInVal = chapterIn.value.replace(/ /g, "_");
+  console.log(classInVal + subjectInVal + chapterInVal);*/
+  //console.log("class" + classIn.value + subjectIn.value + chapterIn.value);
   function countQues(){
     count++
     quesNum.innerHTML = count
@@ -46,6 +52,7 @@ submitBtn.onclick = function pushing(e){
       b: b_text.value,
       c: c_text.value ,
       d: d_text.value ,
+      hint: hintIn.value,
       correct: answer
     }
     quizData.push(newQuiz);
@@ -108,7 +115,8 @@ submitBtn.onclick = function pushing(e){
         console.log("started sending to git");
         const classInVal = classIn.value.replace(/ /g, "_");
         const subjectInVal = subjectIn.value.replace(/ /g, "_");
-
+        const chapterInVal = chapterIn.value.replace(/ /g, "_");
+        
         // Sending the data to the github repository
         const sending = async () => {
           getSel();
@@ -119,8 +127,8 @@ submitBtn.onclick = function pushing(e){
             await octokitAPI.request('PUT /repos/{owner}/{repo}/contents/{path}', {
               owner: repoOwner,
               repo: repoName,
-              path: `${classInVal}/${subjectInVal}/quiz-${quizNum}.json`,
-              message: `Question paper added of class : ${classInVal} and subject is ${subjectInVal}`,
+              path: `${classInVal}/${subjectInVal}/${chapterInVal}/quiz-${quizNum}.json`,
+              message: `Question paper added of class : ${classInVal} , subject is ${subjectInVal} and chapter is ${chapterInVal}`,
               committer: {
                 name: commiterName,
                 email: commiterEmail
@@ -142,13 +150,13 @@ submitBtn.onclick = function pushing(e){
         };
         
         // Checking if the class name and subject name is entered or not
-        if(classInVal==="" || subjectInVal===""){
-          alert("Please enter the Class name & Subject name");
+        if(classInVal==="none" || subjectInVal==="none" || chapterInVal==="none"){
+          alert("Please enter a valid Class name , Subject name & Chapter");
           submitting = true;
           return;
         }else{
           e.preventDefault();
-          console.log("classname & subject verified , sending to git");
+          console.log("classname , subject & chapter verified , sending to git");
           sending();
         }
       }
