@@ -1,4 +1,3 @@
-
 // Importing the required modules
 import { Octokit } from "https://cdn.skypack.dev/@octokit/rest";
 import { octokitAuthKey , repoOwner , repoName , commiterName , commiterEmail } from "../credentials/secure.js";
@@ -106,10 +105,59 @@ submitBtn.onclick = function pushing(e){
 
       // Creating the file name
       let quizNum = year + '-' + month + '-' + day + '_' + hours + '-' + minutes + '-' + seconds;
-
+	 
+	  
+	  
+	 
+	
+	
+	
       // Function to send the data to the github repository
       if(submitting) {
         endBtn.innerHTML = "Confirm Submit"
+       
+        
+        /*let myData = {
+        name: "John Doe",
+        age: 30,
+        city: "New York"
+        };*/
+        
+        
+        
+        
+        let jsonData = JSON.stringify(quizData);
+        
+        let blob = new Blob([jsonData], {type: "application/json"});
+        console.log(blob.type)
+        console.log(blob)
+        if (navigator.msSaveBlob) {
+        // For IE and Edge
+        navigator.msSaveBlob(blob, "NewQuestionPaper.json");
+        } else {
+        let downloadLink = document.createElement("a");
+        downloadLink.href = URL.createObjectURL(blob);
+        
+        if (downloadLink.download !== undefined) {
+       		downloadLink.download , "NewQuestionPaper.json";
+       		//downloadLink.setAttribute("target", "_blank");
+       		//downloadLink.style.display = "none";
+        }
+      
+        //quizCont.appendChild(downloadLink);
+        
+        try {
+        downloadLink.click();
+        alert("File saved succesfully ,\n Now click on Confirm Submit button to Upload the File to Server.\n\n If you get any error while uploading file to server, then just locate the downlaoded file and send it to the developers. ✨ ");
+        } catch (error) {
+        alert("Error downloading file , Report to the developers : " , error);
+        }
+        
+        //quizCont.removeChild(downloadLink);
+        }
+       
+       
+      
       } else {
         e.preventDefault();
         console.log("started sending to git");
@@ -140,6 +188,7 @@ submitBtn.onclick = function pushing(e){
               console.log("changed count to 1");
               classIn.value = "";
               subjectIn.value = "";
+              chapterIn.value = "";
 
             e.preventDefault();
             console.log("sent to git");
@@ -154,6 +203,9 @@ submitBtn.onclick = function pushing(e){
         if(classInVal==="none" || subjectInVal==="none" || chapterInVal==="none"){
           alert("Please enter a valid Class name , Subject name & Chapter");
           submitting = true;
+        
+      
+      
           return;
         }else{
           e.preventDefault();
