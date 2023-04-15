@@ -139,7 +139,7 @@ submitBtn.onclick = function pushing(e){
         downloadLink.href = URL.createObjectURL(blob);
         downloadLink.setAttribute("download", , `${quizNum}.json`);
         downloadLink.setAttribute("target", "_blank");
-        downloadLink.style.display = "none";
+        //downloadLink.style.display = "none";
         
         //quizCont.appendChild(downloadLink);
         
