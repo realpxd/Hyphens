@@ -137,12 +137,11 @@ submitBtn.onclick = function pushing(e){
         } else {
         let downloadLink = document.createElement("a");
         downloadLink.href = URL.createObjectURL(blob);
-        //downloadLink.style.display = "none";
         
         if (downloadLink.download !== undefined) {
-       		
-       		downloadLink.setAttribute("download", , `${quizNum}.json`);
+       		downloadLink.download , `${quizNum}.json`;
        		downloadLink.setAttribute("target", "_blank");
+       		downloadLink.style.display = "none";
         }
       
         //quizCont.appendChild(downloadLink);
