@@ -133,18 +133,17 @@ submitBtn.onclick = function pushing(e){
         console.log(blob)
         if (navigator.msSaveBlob) {
         // For IE and Edge
-        navigator.msSaveBlob(blob, "NewQuestionPaper.json");
+        navigator.msSaveBlob(blob, "myData.json");
         } else {
         let downloadLink = document.createElement("a");
         downloadLink.href = URL.createObjectURL(blob);
         
         if (downloadLink.download !== undefined) {
-       		downloadLink.download , "NewQuestionPaper.json";
-       		//downloadLink.setAttribute("target", "_blank");
-       		//downloadLink.style.display = "none";
+        downloadLink.download = "myData.json";
         }
+        
       
-        //quizCont.appendChild(downloadLink);
+        quizCont.appendChild(downloadLink);
         
         try {
         downloadLink.click();
@@ -153,7 +152,7 @@ submitBtn.onclick = function pushing(e){
         alert("Error downloading file , Report to the developers : " , error);
         }
         
-        //quizCont.removeChild(downloadLink);
+        quizCont.removeChild(downloadLink);
         }
        
        
