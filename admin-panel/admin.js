@@ -133,13 +133,13 @@ submitBtn.onclick = function pushing(e){
         console.log(blob)
         if (navigator.msSaveBlob) {
         // For IE and Edge
-        navigator.msSaveBlob(blob, "myData.json");
+        navigator.msSaveBlob(blob, "quizData.json");
         } else {
         let downloadLink = document.createElement("a");
         downloadLink.href = URL.createObjectURL(blob);
         
         if (downloadLink.download !== undefined) {
-        downloadLink.download = "myData.json";
+        downloadLink.download = "quizData.json";
         }
         
       
