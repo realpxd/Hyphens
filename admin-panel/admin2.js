@@ -128,7 +128,7 @@ submitBtn.onclick = function pushing(e){
 	  } else {
 	  let downloadLink = document.createElement("a");
 	  downloadLink.href = URL.createObjectURL(blob);
-	  
+	  downloadLink.setAttribute("target", "_blank");
 	  if (downloadLink.download !== undefined) {
 	  downloadLink.download , `${quizNum}.json`;
 	  }
