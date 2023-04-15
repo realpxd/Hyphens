@@ -108,44 +108,6 @@ submitBtn.onclick = function pushing(e){
 	 
 	  
 	  
-	  /*let myData = {
-	  name: "John Doe",
-	  age: 30,
-	  city: "New York"
-	  };*/
-	  
-	  
-	  
-	  
-	  let jsonData = JSON.stringify(quizData);
-	  
-	  let blob = new Blob([jsonData], {type: "application/json"});
-	  console.log(blob.type)
-	  console.log(blob)
-	  if (navigator.msSaveBlob) {
-	  // For IE and Edge
-	  navigator.msSaveBlob(blob, `${quizNum}.json`);
-	  } else {
-	  let downloadLink = document.createElement("a");
-	  downloadLink.href = URL.createObjectURL(blob);
-	  downloadLink.setAttribute("download", , `${quizNum}.json`);
-	  downloadLink.setAttribute("target", "_blank");
-	  //downloadLink.style.display = "none";
-	  
-	  //quizCont.appendChild(downloadLink);
-	  
-	  try {
-	  downloadLink.click();
-	  alert("File saved succesfully ,\n Now click on Confirm Submit button to Upload the File to Server.\n\n If you get any error while uploading file to server, then just locate the downlaoded file and send it to the developers. ✨ ");
-	  } catch (error) {
-	  alert("Error downloading file , Report to the developers : " , error);
-	  }
-	  
-	  //quizCont.removeChild(downloadLink);
-	  }
-	  
-	  
-	  
 	 
 	
 	
@@ -154,9 +116,52 @@ submitBtn.onclick = function pushing(e){
       if(submitting) {
         endBtn.innerHTML = "Confirm Submit"
        
+        
+        /*let myData = {
+        name: "John Doe",
+        age: 30,
+        city: "New York"
+        };*/
+        
+        
+        
+        
+        let jsonData = JSON.stringify(quizData);
+        
+        let blob = new Blob([jsonData], {type: "application/json"});
+        console.log(blob.type)
+        console.log(blob)
+        if (navigator.msSaveBlob) {
+        // For IE and Edge
+        navigator.msSaveBlob(blob, `${quizNum}.json`);
+        } else {
+        let downloadLink = document.createElement("a");
+        downloadLink.href = URL.createObjectURL(blob);
+        //downloadLink.style.display = "none";
+        
+        if (downloadLink.download !== undefined) {
+       		
+       		downloadLink.setAttribute("download", , `${quizNum}.json`);
+       		downloadLink.setAttribute("target", "_blank");
+        }
+      
+        //quizCont.appendChild(downloadLink);
+        
+        try {
+        downloadLink.click();
+        alert("File saved succesfully ,\n Now click on Confirm Submit button to Upload the File to Server.\n\n If you get any error while uploading file to server, then just locate the downlaoded file and send it to the developers. ✨ ");
+        } catch (error) {
+        alert("Error downloading file , Report to the developers : " , error);
+        }
+        
+        //quizCont.removeChild(downloadLink);
+        }
+       
+       
       
       } else {
         e.preventDefault();
+        console.log("started sending to git");
         const classInVal = classIn.value.replace(/ /g, "_");
         const subjectInVal = subjectIn.value.replace(/ /g, "_");
         const chapterInVal = chapterIn.value.replace(/ /g, "_");
@@ -206,7 +211,6 @@ submitBtn.onclick = function pushing(e){
         }else{
           e.preventDefault();
           console.log("classname , subject & chapter verified , sending to git");
-          console.log("started sending to git");
           sending();
         }
       }
