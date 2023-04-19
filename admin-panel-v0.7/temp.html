@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="prev">
+        Prev
+    </button>
+
+    <button id="next">
+        Next
+    </button>
+
+    <script>
+        const prev = document.getElementById('prev')
+        const next = document.getElementById('next')
+        
+        const temp = [{first: "this"}, {second: "that"} , {third: "random"} , {fourth: "length"}]
+        console.log(temp);
+        
+        var len = temp.length - 1
+        let currPos = len;
+
+         prev.addEventListener('click',()=>{
+            currPos--;
+            if(temp[currPos]==undefined){
+                console.log(temp[len]);
+                currPos = len;
+            }
+            else{
+                // temp[currPos] = {first: "this"}, {second: "that"};
+                console.log(temp[currPos]);
+            }
+         })
+
+         next.addEventListener('click',()=>{
+            currPos++;
+            if(temp[currPos]==undefined){
+                console.log(temp[len]);
+                currPos = len;
+            }
+            else{
+                console.log(temp[currPos]);
+            }
+         })
+
+
+
+        // const temp = [
+        //     first : "this" ,
+        //     second : "that"
+        // ]
+
+        
+    </script>
+</body>
+</html>
