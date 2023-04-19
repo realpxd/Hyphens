@@ -211,6 +211,8 @@
       var updatedQuiz = [];
       if(localStorage.getItem("updatedQuiz")){
         var quizData = JSON.parse(localStorage.getItem("updatedQuiz"))
+  previousBtn.style.visibility = "visible"
+  submitBtn.style.visibility = "visible"
       }else{
         var quizData = ['temp', 'temp']
       }

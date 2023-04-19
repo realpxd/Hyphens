@@ -181,10 +181,12 @@ ul li label{
 .quiz-container #submit{
   bottom: 7.5rem;
   right: 2.5rem;
+  visibility: hidden;
 }
 .quiz-container #previous{
   bottom: 7.5rem;
   right: 7rem;
+  visibility: hidden;
 }
 .quiz-container #fixBtn{
   right: 2rem;

@@ -20,7 +20,7 @@ let endQuizClicked = false
 var len = quizData.length - 1
 var currPos = 0
 if(quizData[0] == "temp"){
-  quesNum.innerHTML = 0
+  quesNum.innerHTML = 1
 }else{
   quesNum.innerHTML = len + 2
 }
@@ -75,7 +75,7 @@ function pushing () {
       console.log('reseted :')
       console.log(quizData)
     } else {
-      if (quizData[currPos + 1] == undefined) {
+      if (quizData[currPos + 1] == undefined && quizData[currPos] != 0) {
         quizData.push(newQuiz)
         deselectAnswers()
         console.log('without temp if empty :')
@@ -201,12 +201,16 @@ function pushing () {
     }
     // return currPos;
   })
-
+function activateNavs(){
+  previousBtn.style.visibility = "visible"
+  submitBtn.style.visibility = "visible"
+}
   previousBtn.addEventListener('click', e => {
     console.log(quizData)
     e.preventDefault()
     if (currPos <= 0) {
-      currPos = len + 1
+      let len = quizData.length
+      currPos = len
       // currPos++
       console.log(quizData[len])
       console.log(currPos)
@@ -224,9 +228,13 @@ function pushing () {
     console.log(currPos)
     return currPos
   })
-
+var doActivateNav = false;
   fixBtn.addEventListener('click', e => {
     e.preventDefault()
+    if(!doActivateNav){
+      activateNavs()
+      doActivateNav = false
+    }
 
     if (quizData[currPos] == undefined) {
       console.log('If undefined: ')
@@ -240,8 +248,8 @@ function pushing () {
       getSel(currPos)
       console.log(quizData[currPos])
       currPos++
-      quesNum.innerHTML = currPos+2
-      currPos = quizData.length 
+      quesNum.innerHTML = currPos + 1
+      currPos = quizData.length
     }
 
     // if(quizData[quizData.length] == undefined){
@@ -255,7 +263,7 @@ function pushing () {
     //   getSel(currPos)
     // }
     console.log(currPos)
-    return currPos;
+    return currPos , doActivateNav;
   })
 
   const octokitAPI = new Octokit({
