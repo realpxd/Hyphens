@@ -75,9 +75,13 @@ function pushing () {
       console.log('reseted :')
       console.log(quizData)
     } else {
-      if (quizData[currPos + 1] == undefined && quizData[currPos] != 0) {
+      if (quizData[currPos + 1] == undefined && currPos !== 0)  {
         quizData.push(newQuiz)
         deselectAnswers()
+        console.log(currPos !== 0)
+        console.log(quizData[currPos] !== 1)
+          console.log(quizData[currPos] !== -1)
+            console.log(currPos + "this")
         console.log('without temp if empty :')
         console.log(quizData)
       } else {
