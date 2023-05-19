@@ -144,9 +144,9 @@ getUserClassDataOut()
   }
 
 // Function to access the quiz data of the selected quiz paper
-const getQuiz = async (dirName, fileName) => {
+const getQuiz = async (dirName, subDirName, fileName) => {
   try {
-      const response = await fetch(`https://${repoOwner}.github.io/${repoName}/${path}/${dirName}/${fileName}`);
+      const response = await fetch(`https://${repoOwner}.github.io/${repoName}/${path}/${dirName}/${subDirName}/${fileName}`);
       if (!response.ok) {
           throw new Error(response.statusText);
       }
@@ -181,8 +181,8 @@ const getQuiz = async (dirName, fileName) => {
   }
 };
 
-// Function to display the quiz files
-const displayFiles = async (dirName) => {
+// Function to display the chapter names
+const displayChapters = async (dirName) => {
     try {
       const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}/${dirName}`);
       if (!response.ok) {
@@ -198,7 +198,7 @@ const displayFiles = async (dirName) => {
         // Looping through the data to get the file name and displaying it
 	      fileData.forEach(file => {
 	        const ongoingFeedData = `
-	          <div class="quiz-box-user" id="quiz-box-user" onclick="showConfirmBox('${dirName}', '${file.name}')">
+	          <div class="quiz-box-user" id="quiz-box-user" onclick="displayFiles('${dirName}', '${file.name}')">
 	            ${file.name}
 	          </div> <hr>
 	        `;
@@ -212,14 +212,48 @@ const displayFiles = async (dirName) => {
     }
 }
 
+
+// Function to display the quiz files
+const displayFiles = async (dirName , subDirName) => {
+  try {
+    const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}/${dirName}/${subDirName}`);
+    if (!response.ok) {
+        const erRes = `<p class="err-response">Uh ohh , &#129301; <br> Seems like nothing found<br> Try searching for something else </p>`
+        containeOngoingQuizDataUser.insertAdjacentHTML('beforeend' , erRes);
+        throw new Error(response.statusText);
+
+    }else{
+      // Getting the data from the response
+      const fileData = await response.json();
+      // Reversing the data to get the latest data first
+      fileData.reverse();
+      // Looping through the data to get the file name and displaying it
+      
+    containeOngoingQuizDataUser.innerHTML = "";
+      fileData.forEach(file => {
+        const ongoingFeedData = `
+          <div class="quiz-box-user" id="quiz-box-user" onclick="showConfirmBox('${dirName}','${subDirName}', '${file.name}')">
+            ${file.name}
+          </div> <hr>
+        `;
+        console.log("writing on doc" , file.name);
+        containeOngoingQuizDataUser.insertAdjacentHTML('beforeend' , ongoingFeedData);
+    });
+    }
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // Confirm Box to start the quiz
-function showConfirmBox(dirName, fileName){
+function showConfirmBox(dirName , subDirName , fileName){
 	let prompt = `
 		<div class="prompt" id="prompt">
 			<h2> Start Quiz? </h2>
 			<p> Please confirm that you want to start the quiz , It might take long time to complete. You can't go back once the quiz been started </p>
 			<button onclick="removePrompt(this)"> Cancel </button>
-			<button onclick="getQuiz('${dirName}', '${fileName}'); removePrompt(this)"> Start </button>
+			<button onclick="getQuiz('${dirName}', '${subDirName}' , '${fileName}'); removePrompt(this)"> Start </button>
 		</div>
 	`
 	$('.prompt-box').fadeIn(70);
@@ -246,17 +280,17 @@ function replaceQp(e) {
   // Checking if the subject is available or not
   if(e === "Maths" || e === ""){
     containeOngoingQuizDataUser.innerHTML = "";
-    displayFiles("Maths");
+    displayChapters("Maths");
     subjectInName.innerHTML = "Maths";
   }
   else{
     containeOngoingQuizDataUser.innerHTML = "";
-    displayFiles(e);
+    displayChapters(e);
     subjectInName.innerHTML = e;
   }
 }
 // Calling the function to display the Math quiz files as default
-displayFiles("Maths");
+displayChapters("Maths");
 
 // Function to load the quiz
 const loadQuiz = () => {
@@ -444,6 +478,7 @@ if (localStorage.getItem("inEmailValue") == null && localStorage.getItem("inPass
 // Exporting the functions to the global scope
 window.removeSubject = removeSubject;
 window.replaceQp = replaceQp;
+window.displayFiles = displayFiles;
 window.getQuiz = getQuiz;
 window.sendAndReload = sendAndReload;
 window.showConfirmBox = showConfirmBox;
