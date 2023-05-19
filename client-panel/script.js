@@ -436,10 +436,10 @@ submitBtn.addEventListener('click', () => {
 	if(answer) {
 		$("#quiz-container-user").fadeOut(300);
 		$("#quiz-container-user").fadeIn(800);
-	   if(answer === quizData[currentQuiz].correct) {
+	  //  if(answer === quizData[currentQuiz].correct) {
 	       score++
 	       scored.innerHTML = score      
-	   }
+	  //  }
 	   	currentQuiz++
 		setTimeout(push,450);
 	}
